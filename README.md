@@ -1,6 +1,6 @@
 ![Bloko — Minecraft plugin development](assets/profile-header.svg)
 
-I build Java plugins for Minecraft servers, with a focus on practical quality-of-life features, clear configuration, and maintainable code.
+I develop Java plugins for Paper servers and Velocity proxies, including quality-of-life features, gameplay utilities, and server-network tools. I focus on clear configuration, maintainable code, and documented releases.
 
 ## Featured project
 
@@ -12,14 +12,17 @@ Low-durability warnings and automatic spare-tool switching for Paper servers. To
 
 [View source](https://github.com/Bloko-0/ToolSaver) · [Download the latest release](https://github.com/Bloko-0/ToolSaver/releases/latest) · [Read the documentation](https://github.com/Bloko-0/ToolSaver#readme)
 
-## Technical focus
+## Development skills
 
 | Area | Tools and approach |
 | --- | --- |
-| Plugin development | Java, Paper API, event-driven server features |
-| Build tooling | Gradle Wrapper, Java toolchains, versioned JAR releases |
-| Testing | JUnit, MockBukkit, inventory and command behavior checks |
-| Documentation | Installation guides, configuration references, known limitations |
+| Plugin development | Java, Paper/Bukkit APIs, Velocity proxy API, event-driven features |
+| Gameplay and server tools | Commands, permissions, inventory handling, persistent player settings |
+| Proxy and network features | Server transfers, reconnect queues, fallback routing, health checks |
+| Build tooling | Gradle Wrapper, Java toolchains, dependency shading and relocation |
+| Testing | JUnit, MockBukkit, Mockito, inventory and command behavior checks |
+| Delivery and version control | Git, GitHub Actions, versioned JAR/source releases, SHA-256 checksums |
+| Configuration and documentation | YAML settings, installation guides, compatibility notes, known limitations |
 
 ## Project approach
 

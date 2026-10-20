@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
   <title id="title">Bloko — Minecraft plugin development</title>
-  <desc id="desc">A dark navy banner with blue geometric lines and the words Java, Paper, and server tools.</desc>
+  <desc id="desc">A dark navy banner with blue geometric lines and the words Java, Paper, and Velocity.</desc>
   <defs>
     <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#101c2f"/>
@@ -18,7 +18,7 @@
   <g font-family="Segoe UI, Arial, sans-serif">
     <text x="56" y="123" font-size="56" font-weight="700" letter-spacing="6" fill="#f4f7fb">BLOKO</text>
     <text x="58" y="167" font-size="24" font-weight="400" fill="#c9d5e5">Minecraft plugin development</text>
-    <text x="58" y="229" font-size="15" font-weight="600" letter-spacing="2.2" fill="#7fb4f7">JAVA / PAPER / SERVER TOOLS</text>
+    <text x="58" y="229" font-size="15" font-weight="600" letter-spacing="2.2" fill="#7fb4f7">JAVA / PAPER / VELOCITY</text>
   </g>
   <path d="M56 261h1088" stroke="#233248" stroke-width="1"/>
 </svg>
