@@ -2,15 +2,9 @@
 
 I develop Java plugins for Paper servers and Velocity proxies, including quality-of-life features, gameplay utilities, and server-network tools. I focus on clear configuration, maintainable code, and documented releases.
 
-## Featured project
+## Current projects
 
-### [Tool Saver](https://github.com/Bloko-0/ToolSaver)
-
-Low-durability warnings and automatic spare-tool switching for Paper servers. Tool Saver preserves item names, enchantments, and custom data when swapping tools, including when the inventory is full.
-
-**Paper 1.21.11 · Java 21 · Gradle · 21 automated tests**
-
-[View source](https://github.com/Bloko-0/ToolSaver) · [Download the latest release](https://github.com/Bloko-0/ToolSaver/releases/latest) · [Read the documentation](https://github.com/Bloko-0/ToolSaver#readme)
+All of my current Minecraft plugins are privately maintained while development continues. Public releases and source code may become available in the future.
 
 ## Development skills
 
@@ -31,4 +25,4 @@ Low-durability warnings and automatic spare-tool switching for Paper servers. To
 - Keep source code readable and projects straightforward to build in IntelliJ IDEA.
 - Document requirements and limitations alongside downloadable builds.
 
-Browse my [public repositories](https://github.com/Bloko-0?tab=repositories) for source code and releases. For Tool Saver questions or bug reports, use the [issue tracker](https://github.com/Bloko-0/ToolSaver/issues).
+Public projects and releases will be linked here when available.
