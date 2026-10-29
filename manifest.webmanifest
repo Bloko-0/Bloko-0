@@ -1,0 +1,11 @@
+{
+  "name": "Solitaire Studio",
+  "short_name": "Solitaire",
+  "description": "Play Solitaire, keep local profiles and resume saved games offline.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#259849",
+  "theme_color": "#249947",
+  "icons": [{"src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}]
+}
