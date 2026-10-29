@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+<rect width="256" height="256" rx="48" fill="#249947"/>
+<rect x="64" y="35" width="128" height="186" rx="15" fill="#fff" stroke="#ddd" stroke-width="3"/>
+<path d="M128 112 C104 87 75 107 88 134 C97 150 115 163 128 179 C142 161 162 148 169 132 C179 105 151 87 128 112Z" fill="#e63d44"/>
+<text x="81" y="81" font-family="Georgia,serif" font-size="39" font-weight="bold" fill="#e63d44">A</text>
+<text x="86" y="108" font-size="26" fill="#e63d44">♥</text>
+</svg>
