@@ -24,7 +24,7 @@
         <div class="piles-top" id="pilesTop"><div class="slot stock" data-target="stock" id="stock" aria-label="Draw pile"></div><div class="slot waste" data-target="waste" id="waste" aria-label="Waste pile"></div><div class="spacer-pile" aria-hidden="true"></div><div class="slot foundation" data-target="f0" aria-label="Spades foundation"><span class="placeholder-symbol">♠</span></div><div class="slot foundation" data-target="f1" aria-label="Hearts foundation"><span class="placeholder-symbol">♥</span></div><div class="slot foundation" data-target="f2" aria-label="Clubs foundation"><span class="placeholder-symbol">♣</span></div><div class="slot foundation" data-target="f3" aria-label="Diamonds foundation"><span class="placeholder-symbol">♦</span></div></div>
         <div class="tableau" id="tableau"></div>
       </section>
-      <p class="table-tip" id="tableTip">Drag a card, or click a card and its destination to move it.</p>
+      <p class="table-tip" id="tableTip">Tap a card for an automatic move, or tap a card and its destination.</p>
     </main>
     <footer class="toolbar"><div class="toolbar-group"><button class="tool" id="undoBtn"><span class="tool-icon">↶</span><span>UNDO</span></button><button class="tool" id="hintBtn"><span class="tool-icon">✧</span><span>HINT</span></button><button class="tool" id="autoBtn" hidden><span class="tool-icon">✦</span><span>FINISH</span></button><button class="tool" id="newBtn"><span class="tool-icon">★</span><span>NEW</span></button></div><div class="toolbar-group toolbar-secondary"><button class="tool" id="friendsBtn"><span class="tool-icon">♧</span><span>FRIENDS</span></button><button class="tool" id="statsBtn"><span class="tool-icon">▥</span><span>STATS</span></button></div></footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -383,7 +383,7 @@ window.SOLITAIRE_FIREBASE = null;
       let y=0;const cards=pile.map((c,j)=>{const html=cardHTML(c,`t${i}`,j,y);y+=tableauStep(c.up);return html;}).join('');
       return `<div class="column ${hintMark?.to===`t${i}`?'suggested':''}" data-target="t${i}" style="min-height:${Math.max(275,y+135)}px"><div class="empty-cell"></div>${cards}</div>`;
     }).join('');
-    $('tableTip').textContent=game?.won?'You completed this game. Start a new one to play again.':'Drag cards, or click a card and its destination to move it.';
+    $('tableTip').textContent=game?.won?'You completed this game. Start a new one to play again.':'Tap a card to move it automatically when possible. Or tap a card and a destination; drag also works.';
   }
   function snapshot(){history.push(currentState());if(history.length>90)history.shift();}
   function afterMove(previouslyWon){selected=null;hintMark=null;beep(540);if(game.won&&!previouslyWon){stats.wins++;stats.totalMoves+=game.moves;stats.bestTime=stats.bestTime==null?game.seconds:Math.min(stats.bestTime,game.seconds);stats.bestScore=Math.max(stats.bestScore,game.score);beep(880);setTimeout(()=>{if(game?.won)showWin();},400);}save();render();}
@@ -399,7 +399,7 @@ window.SOLITAIRE_FIREBASE = null;
     show(`<p class="eyebrow">A CLASSIC CARD GAME</p><h2 id="modalTitle">${isNew?'New game':'Choose your difficulty'}</h2><p class="center">${subtitle}</p><div class="difficulty"><button class="diff-card" data-mode="easy">${kingCard('K','red')}<strong>EASY</strong><small>Draw 1 card</small></button><button class="diff-card" data-mode="hard">${kingCard('K','blue')}<strong>HARD</strong><small>Draw 3 cards</small></button></div>${game?'<div class="modal-actions"><button class="btn btn-soft" data-action="close">Keep playing</button></div>':''}`,'difficulty');}
   function showWin(){show(`<p class="eyebrow">DEAL COMPLETE</p><h2 id="modalTitle">You won! ✦</h2><p class="center">All four foundations are complete. Great game!</p><div class="stat-grid"><div class="stat-tile"><strong>${fmtTime(game.seconds)}</strong><span>TIME</span></div><div class="stat-tile"><strong>${number(game.score)}</strong><span>SCORE</span></div><div class="stat-tile"><strong>${number(game.moves)}</strong><span>MOVES</span></div></div><div class="modal-actions"><button class="btn btn-soft" data-action="close">View table</button><button class="btn btn-primary" data-action="new">Play again</button></div>`,'win');}
   function showStats(){const s=stats;show(`<p class="eyebrow">PLAYER DASHBOARD</p><h2 id="modalTitle">Your statistics</h2><p class="center">${escape(session==='cloud'?cloudName:db.activeGuest)} · ${session==='cloud'?'Google account':'Local profile'}</p><div class="stat-grid"><div class="stat-tile"><strong>${number(s.played)}</strong><span>GAMES PLAYED</span></div><div class="stat-tile"><strong>${number(s.wins)}</strong><span>GAMES WON</span></div><div class="stat-tile"><strong>${s.played?Math.round(100*s.wins/s.played):0}%</strong><span>WIN RATE</span></div><div class="stat-tile"><strong>${number(s.bestScore)}</strong><span>BEST SCORE</span></div><div class="stat-tile"><strong>${s.bestTime==null?'–':fmtTime(s.bestTime)}</strong><span>FASTEST WIN</span></div><div class="stat-tile"><strong>${number(s.totalMoves)}</strong><span>MOVES IN WINS</span></div></div><p class="note">${session==='cloud'?'Scores synchronize to your account. Friends see only your chosen display name and game stats.':'Stats and your current game save in this browser. Export a backup if you want to keep them.'}</p><div class="modal-actions"><button class="btn btn-soft" data-action="close">Close</button><button class="btn btn-primary" data-action="export">Export backup</button></div>`,'stats');}
-  function showHelp(){show(`<p class="eyebrow">THE RULES</p><h2 id="modalTitle">How to play</h2><p>Move all 52 cards into the four upper-right foundations, from Ace to King, matching suits.</p><ol class="help-steps"><li>Build descending stacks of alternating red and black cards.</li><li>Only Kings can move into empty columns.</li><li>Click the deck to draw. Easy draws one; Hard draws three.</li><li>Drag face-up stacks, or click a card and then its destination.</li><li>Double-click a single card to move it automatically.</li><li>Undo moves, ask for hints, and use Finish when a deal is ready.</li></ol><p class="note"><strong>Shortcuts:</strong> Z undo · H hint · Space draw · N new game · Esc close</p><div class="modal-actions"><button class="btn btn-primary" data-action="close">Got it</button></div>`,'help');}
+  function showHelp(){show(`<p class="eyebrow">THE RULES</p><h2 id="modalTitle">How to play</h2><p>Move all 52 cards into the four upper-right foundations, from Ace to King, matching suits.</p><ol class="help-steps"><li>Build descending stacks of alternating red and black cards.</li><li>Only Kings can move into empty columns.</li><li>Click the deck to draw. Easy draws one; Hard draws three.</li><li>Tap a face-up card to move it automatically if there is a clear destination. If there are multiple destinations, tap the card and then a destination, or drag.</li><li>Double-click a single card to move it automatically.</li><li>Undo moves, ask for hints, and use Finish when a deal is ready.</li></ol><p class="note"><strong>Shortcuts:</strong> Z undo · H hint · Space draw · N new game · Esc close</p><div class="modal-actions"><button class="btn btn-primary" data-action="close">Got it</button></div>`,'help');}
   function showProfile(){
     if(session==='cloud'){
       show(`<p class="eyebrow">CONNECTED PROFILE</p><h2 id="modalTitle">Your account</h2><div class="account-overview"><span class="avatar-large">${escape(cloudName[0]?.toUpperCase()||'P')}</span><span><strong>${escape(cloudName)}</strong><small>Signed in with Google · Cloud save enabled</small></span></div><div class="subtle-title">Display name visible to friends</div><form id="renameForm" class="field-row"><input type="text" id="renameInput" maxlength="28" aria-label="Display name" required value="${escape(cloudName)}"><button class="btn btn-primary" type="submit">Update</button></form><div class="subtle-title">Your friend code</div><div class="code-bubble">${escape(cloudCode||'Loading…')}</div><div class="modal-actions"><button class="btn btn-soft" data-action="friends">Friends</button><button class="btn btn-soft" data-action="signout">Sign out</button><button class="btn btn-primary" data-action="close">Done</button></div>`,'account');return;
@@ -448,13 +448,13 @@ window.SOLITAIRE_FIREBASE = null;
     catch(e){cloudName=`Player ${uid.slice(0,4).toUpperCase()}`;cloudCode='';toast('Cloud profile setup failed: check Firestore rules.');}
     render();save();if(!game)showStart();else{closeModal();toast('Signed in. Your game is ready.');}
   }
-  // Touch, mouse and pen cards work via Pointer Events. Click-to-select is a fallback.
+  // Pointer movement starts drag; a normal click/tap first tries automatic placement.
   document.addEventListener('pointerdown',e=>{if(!$('overlay').classList.contains('hidden')||autoRunning)return;const el=e.target.closest('.card');if(!el||el.dataset.source==='stock')return;
     const from=el.dataset.source,index=Number(el.dataset.index),a=game&&E.source(game,from);
     if(!a?.[index]?.up || (from==='waste'&&index!==a.length-1))return;
-    drag={from,index, x:e.clientX,y:e.clientY,pid:e.pointerId,started:false,ghosts:[]};
+    drag={from,index, x:e.clientX,y:e.clientY,pid:e.pointerId,pointerType:e.pointerType,started:false,ghosts:[]};
   },true);
-  document.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.pid)return;const d=drag;if(!d.started&&Math.hypot(e.clientX-d.x,e.clientY-d.y)<8)return;
+  document.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.pid)return;const d=drag;if(!d.started&&Math.hypot(e.clientX-d.x,e.clientY-d.y)<(d.pointerType==='touch'?17:8))return;
     if(!d.started){d.started=true;const items=[...document.querySelectorAll(`.card[data-source="${d.from}"]`)].filter(el=>Number(el.dataset.index)>=d.index);
       d.ghosts=items.map(el=>{const r=el.getBoundingClientRect(),copy=el.cloneNode(true);copy.classList.add('drag-ghost');copy.style.cssText=`position:fixed;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;z-index:9999;`;document.body.append(copy);return {node:copy,left:r.left,top:r.top};});
     }
@@ -466,9 +466,28 @@ window.SOLITAIRE_FIREBASE = null;
     if(!target||!doMove(d.from,d.index,target))toast('That move is not allowed.');
   },true);
   document.addEventListener('pointercancel',()=>{if(drag){drag.ghosts.forEach(g=>g.node.remove());drag=null;}});
-  function clickCard(from,index){if(from==='stock'){doDraw();return;}const arr=game&&E.source(game,from);if(selected&&doMove(selected.from,selected.index,from))return;
-    if(!arr?.[index]?.up)return;if(from==='waste'&&index!==arr.length-1)return;
-    if(selected?.from===from&&selected?.index===index){selected=null;render();return;}
+  // Google-style one-tap moves: prefer an available foundation, then a unique tableau
+  // placement. If two tableau destinations are possible, keep the card selected so the
+  // player chooses the intended column with a second tap; dragging always remains available.
+  function autoDestination(from,index){
+    if(!game||game.won||from.startsWith('f'))return null;
+    for(let f=0;f<4;f++)if(E.valid(game,from,index,`f${f}`))return `f${f}`;
+    const options=[];
+    for(let t=0;t<7;t++)if(E.valid(game,from,index,`t${t}`))options.push(`t${t}`);
+    return options.length===1?options[0]:null;
+  }
+  function clickCard(from,index){
+    if(from==='stock'){doDraw();return;}
+    const arr=game&&E.source(game,from);
+    if(!arr?.[index]?.up)return;
+    if((from==='waste'||from.startsWith('f'))&&index!==arr.length-1)return;
+    // A chosen card followed by a destination card always takes priority.
+    if(selected){
+      if(selected.from===from&&selected.index===index){selected=null;render();return;}
+      if(doMove(selected.from,selected.index,from))return;
+    }
+    const destination=autoDestination(from,index);
+    if(destination&&doMove(from,index,destination))return;
     selected={from,index};hintMark=null;render();
   }
   document.addEventListener('click',async e=>{if(Date.now()<suppressClicksUntil)return;
